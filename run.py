@@ -1,8 +1,16 @@
 #!/usr/bin/env python3
 
-try:
+from config import cfg
+
+def run_app():
     from app import cli
-    from config import token
-    cli.run(token)
-except:
-    print("Failed to run the app. Try ton install discord module.\n You should add your token in config file.")
+    cli.run(cfg.token)
+
+
+if (cfg.debug == True):
+    run_app()
+else:
+    try:
+        run_app()
+    except:
+        print("Failed to run the app. Try ton install discord module.\n You should add your token in config.py file.")
