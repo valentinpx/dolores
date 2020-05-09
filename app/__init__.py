@@ -12,11 +12,14 @@ async def on_ready():
 @cli.event
 async def on_message(message):
     controller = Controller(message.author.guild)
+    channel = message.channel
     m_arr = message.content.split(" ")
 
     if ((m_arr[0].lower() == "dolores" or m_arr[0].lower() == "ds") and len(m_arr) > 2):
         if (m_arr[1] == "reu"):
             if (m_arr[2] == "add"):
-                await controller.reu_add(m_arr[3])
+                await channel.send(await controller.reu_add(m_arr[3]))
             if (m_arr[2] == "del"):
-                await controller.reu_del(m_arr[3])
+                await channel.send(await controller.reu_del(m_arr[3]))
+            if (m_arr[2] == "invite"):
+                print(message.content)
