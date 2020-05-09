@@ -22,4 +22,4 @@ async def on_message(message):
             if (m_arr[2] == "del"):
                 await channel.send(await controller.reu_del(m_arr[3]))
             if (m_arr[2] == "invite"):
-                print(message.content)
+                await channel.send(await controller.reu_invite(m_arr[3], message.mentions))

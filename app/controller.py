@@ -33,3 +33,13 @@ class Controller():
             await channel.delete()
         await category.delete()
         return ("Réunion supprimée.")
+    
+    async def reu_invite(self, title, users):
+        if (get(self.server.roles, name=title) == None or get(self.server.categories, name=title) == None):
+            return ("Impossible de supprimer la réunion: titre introuvable")
+        
+        role = get(self.server.roles, name=title)
+        
+        for user in users:
+            await user.add_roles(role)
+        return ("Utilisateur(s) invité(s) !")
