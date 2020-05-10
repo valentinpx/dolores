@@ -1,5 +1,6 @@
 import discord
 import asyncio
+from config import cfg
 from .controller import Controller
 from discord.utils import get
 
@@ -23,3 +24,20 @@ async def on_message(message):
                 await channel.send(await controller.reu_del(m_arr[3]))
             if (m_arr[2] == "invite"):
                 await channel.send(await controller.reu_invite(m_arr[3], message.mentions))
+
+@cli.event
+async def on_reaction_add(reaction, user):
+    controller = Controller(reaction.message.author.guild)
+    message = reaction.message
+    channel = message.channel
+    title = channel.category.name
+
+    if (user.id == cfg.id or message.content != cfg.command_message):
+        return (0)
+
+    #if (reaction == "💼"):
+    #if (reaction == "🛎️"):
+    if (str(reaction) == "❌"):
+        ret = await controller.reu_kick(user, title)
+        if (ret != 0):
+            await channel.send(ret)
