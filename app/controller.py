@@ -20,6 +20,7 @@ class Controller():
         await category.create_text_channel(name=title + " vocal")
         await category.create_voice_channel(name=title + " chat")
         message = await command_channel.send(cfg.command_message)
+        await message.pin()
         await message.add_reaction(emoji="💼")
         await message.add_reaction(emoji="🛎️")
         await message.add_reaction(emoji="❌")
@@ -58,3 +59,13 @@ class Controller():
             await self.reu_del(title)
             return (0)
         return ("Utilisateur supprimé.")
+    
+    async def reu_ping(self, title, author, channel):
+        role = get(self.server.roles, name=title)
+        mention = "https://discordapp.com/channels/"+ str(self.server.id) +"/" + str(channel.id)
+
+        for member in role.members:
+            if (member != author):
+                channel = await member.create_dm()
+                await channel.send("Hey ! On a besoin de vous dans la réunion " + title + ".\n La réunion en question: " + mention)
+        return ("Utilisateurs notifiés !")

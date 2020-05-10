@@ -12,6 +12,8 @@ async def on_ready():
 
 @cli.event
 async def on_message(message):
+    if (message.author.id == cfg.id):
+        return (0)
     controller = Controller(message.author.guild)
     channel = message.channel
     m_arr = message.content.split(" ")
@@ -35,9 +37,12 @@ async def on_reaction_add(reaction, user):
     if (user.id == cfg.id or message.content != cfg.command_message):
         return (0)
 
-    #if (reaction == "💼"):
-    #if (reaction == "🛎️"):
+    #if (str(reaction) == "💼"):
+    if (str(reaction) == "🛎️"):
+        await channel.send(await controller.reu_ping(title, user, channel))
     if (str(reaction) == "❌"):
         ret = await controller.reu_kick(user, title)
         if (ret != 0):
             await channel.send(ret)
+    else:
+        await message.remove_reaction(reaction, user)
