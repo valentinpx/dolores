@@ -1,2 +1,2 @@
 # dolores
-Bot python conçu pour le remot'Hackaton
+Bot discord en python conçu pour le remot'Hackaton, permettant de créer des réunions et des sessions de travail
