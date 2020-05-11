@@ -20,8 +20,8 @@ class Controller():
         await category.set_permissions(self.server.default_role, view_channel=False)
         await category.set_permissions(role, view_channel=True)
         command_channel = await category.create_text_channel("Commandes")
-        await category.create_text_channel(name=title + " vocal")
-        await category.create_voice_channel(name=title + " chat")
+        await category.create_text_channel(name=title + " chat")
+        await category.create_voice_channel(name=title + " vocal")
         message = await command_channel.send(cfg.command_message)
         await message.pin()
         await message.add_reaction(emoji="💼")
@@ -102,7 +102,9 @@ class Controller():
         await message.pin()
         await message.add_reaction(emoji="❌")
         await message.add_reaction(emoji="⏱️")
+        print("Réunion commencée, attente de : " + str(hours) + "h")
         await asyncio.sleep(hours * 60 * 60)
+        print("Réunion terminée !")
         await reu_end(message, False)
     
     async def reu_end(self, message, canceled):
