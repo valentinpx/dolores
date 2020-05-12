@@ -105,6 +105,7 @@ class Controller():
         print("Réunion commencée, attente de : " + str(hours) + "h")
         await asyncio.sleep(hours * 60 * 60)
         print("Réunion terminée !")
+        await channel.send("Réunion de " + str(hours) + "h complétée")
         await self.reu_end(message, False)
     
     async def reu_end(self, message, canceled):
